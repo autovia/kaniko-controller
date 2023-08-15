@@ -1,0 +1,45 @@
+apiVersion: apiextensions.k8s.io/v1
+kind: CustomResourceDefinition
+metadata:
+  name: images.kanikocontroller.autovia.io
+  annotations:
+    "api-approved.kubernetes.io": "unapproved, experimental-only; please get an approval from Kubernetes API reviewers if you're trying to develop a CRD in the *.k8s.io or *.kubernetes.io groups"
+spec:
+  group: kanikocontroller.autovia.io
+  versions:
+    - name: v1alpha1
+      served: true
+      storage: true
+      schema:
+        openAPIV3Schema:
+          type: object
+          properties:
+            spec:
+              type: object
+              properties:
+                destination:
+                  type: string
+                dockerfile:
+                  type: string
+                status:
+                  type: string
+                  default: "Pending"
+      additionalPrinterColumns:
+      - name: Status
+        type: string
+        description: The image build status
+        jsonPath: .spec.status
+      - name: Destination
+        type: string
+        description: The image destination
+        jsonPath: .spec.destination
+      - name: Age
+        type: date
+        jsonPath: .metadata.creationTimestamp
+  names:
+    kind: Image
+    plural: images
+    singular: image
+    shortNames:
+    - i
+  scope: Namespaced

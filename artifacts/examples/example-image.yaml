@@ -1,0 +1,11 @@
+apiVersion: kanikocontroller.autovia.io/v1alpha1
+kind: Image
+metadata:
+  name: example-image
+spec:
+  destination: "<user-name>/<repo>" # replace with your dockerhub account
+  dockerfile: |
+    FROM ubuntu
+    RUN pwd
+    RUN ls -l
+    ENTRYPOINT ["/bin/bash", "-c", "echo hello"]

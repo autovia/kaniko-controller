@@ -1,0 +1,4 @@
+.DS_Store
+kaniko-controller
+go.sum
+vendor
